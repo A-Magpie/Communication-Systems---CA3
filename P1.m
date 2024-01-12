@@ -10,7 +10,6 @@ N1 = 1000;
 X1 = randn([1 N1]);
 Y1 = randn([1 N1]);
 
-
 figure;
 subplot(2, 1, 1);
 histogram(X1, N);
@@ -29,14 +28,13 @@ histogram(Z1, N);
 E_z = mean(Z1);
 Var_z = E_z - mean(Z1 .* Z1 - E_z);
 
-fprintf("E[Z] = %f\n" , E_z);
-fprintf("Var[Z] = %f\n" , Var_z);
+fprintf("E[Z] = %f\n", E_z);
+fprintf("Var[Z] = %f\n", Var_z);
 
 %%  Part 4
 N2 = 100000;
 X2 = randn([1 N2]);
 Y1 = randn([1 N2]);
-
 
 figure;
 subplot(2, 1, 1);
@@ -55,5 +53,5 @@ histogram(Z2, N);
 E_z = mean(Z2);
 Var_z = E_z - mean(Z2 .* Z2 - E_z);
 
-fprintf("E[Z] = %f\n" , E_z);
-fprintf("Var[Z] = %f\n" , Var_z);
+fprintf("E[Z] = %f\n", E_z);
+fprintf("Var[Z] = %f\n", Var_z);
