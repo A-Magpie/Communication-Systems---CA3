@@ -6,57 +6,90 @@ clear;
 %%   Part 2
 fs = 100;
 t = -0.5:1 / fs:0.5;
-N = 1e2;
+N = 1e4;
 
 A = 10;
 w = 5 * pi;
 teta = 2 * pi * rand(1, N);
-X = @(t, teta) A * cos(w * t + teta);
+Xt = @(t, teta) A * cos(w * t + teta);
 
 % Generating R.P:
-x = zeros(length(t), N);
+x1 = zeros(length(t), N);
 
 for i = 1:length(t)
 
     for j = 1:N
-        x(i, j) = X(t(i), teta(j));
+        x1(i, j) = Xt(t(i), teta(j));
     end
 
 end
 
 % Finding E[x]
-E_x = zeros([1 length(t)]);
+Ex_practical = mean(x1');
 
-E_x = mean(x');
 figure
-plot(t, E_x);
+plot(t, Ex_practical);
 title('E(X_t)');
 xlabel('t');
-ylim([-1 1]); % ???
+ylim([-5 5]);
 
 %%  Part 3
 
-X2 = @(t, tau, teta) A * cos(w * (t + tau) + teta);
+X_t_plus_tau = @(t, tau, teta) A * cos(w * (t + tau) + teta);
+
 tau = t;
 
-Xt = zeros(length(t), N, length(tau));
+x2 = zeros(length(t), N, length(tau));
 
 for i = 1:length(t)
 
     for k = 1:N
 
         for j = 1:length(tau)
-            Xt(i, k, j) = X2(t(i), tau(j), teta(k));
+            x2(i, k, j) = X_t_plus_tau(t(i), tau(j), teta(k));
         end
 
     end
 
 end
 
-x3 = repmat(x, 1, 1, length(tau));
-pro = Xt .* x3;
-E_x = mean(pro, 2);
-R_x = squeeze(E_x);
+x3 = repmat(x1, 1, 1, length(tau));
+pro = x2 .* x3;
+Rx = squeeze(mean(pro, 2));
 
 figure;
-surf(tau, t, R_x);
+surf(tau, t, Rx);
+ylabel("t");
+xlabel("\tau");
+
+%%  Part 4
+Ex_theory = zeros(1, length(t));
+Rx_theory = (A ^ 2)/2 * cos(w * tau);
+
+figure;
+subplot(2, 1, 1);
+plot(Ex_theory);
+title("E_{X,theory}(\tau)");
+xlabel('\tau');
+ylim([-5 5]);
+
+subplot(2, 1, 2);
+plot(Ex_practical);
+title("E_{X,practical}(\tau)");
+xlabel('\tau');
+ylim([-5 5]);
+
+Rx_practical = mean(Rx,1);
+
+figure;
+subplot(2, 1, 1);
+plot(tau,Rx_theory);
+title("R_{X,theory}(\tau)");
+xlabel('\tau');
+
+
+subplot(2, 1, 2);
+plot(tau,Rx_practical);
+title("R_{X,practical}(\tau)");
+xlabel('\tau');
+

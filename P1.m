@@ -7,6 +7,7 @@ clear;
 
 %%  Part 2
 N1 = 1000;
+N=125;
 X1 = randn([1 N1]);
 Y1 = randn([1 N1]);
 
@@ -34,15 +35,15 @@ fprintf("Var[Z] = %f\n", Var_z);
 %%  Part 4
 N2 = 100000;
 X2 = randn([1 N2]);
-Y1 = randn([1 N2]);
+Y2 = randn([1 N2]);
 
 figure;
 subplot(2, 1, 1);
-histogram(X2, N2);
+histogram(X2, N);
 title('X | N = 100000');
 
 subplot(2, 1, 2);
-histogram(Y2, N2);
+histogram(Y2, N);
 title('Y | N = 100000');
 
 Z2 = sqrt(X2 .^ 2 + Y2 .^ 2);
