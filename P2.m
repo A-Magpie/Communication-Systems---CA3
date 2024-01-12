@@ -13,7 +13,6 @@ w = 5 * pi;
 teta = 2 * pi * rand(1, N);
 Xt = @(t, teta) A * cos(w * t + teta);
 
-% Generating R.P:
 x1 = zeros(length(t), N);
 
 for i = 1:length(t)
@@ -24,7 +23,6 @@ for i = 1:length(t)
 
 end
 
-% Finding E[x]
 Ex_practical = mean(x1');
 
 figure
@@ -64,32 +62,30 @@ xlabel("\tau");
 
 %%  Part 4
 Ex_theory = zeros(1, length(t));
-Rx_theory = (A ^ 2)/2 * cos(w * tau);
+Rx_theory = (A ^ 2) / 2 * cos(w * tau);
 
 figure;
 subplot(2, 1, 1);
-plot(Ex_theory);
+plot(tau, Ex_theory);
 title("E_{X,theory}(\tau)");
 xlabel('\tau');
 ylim([-5 5]);
 
 subplot(2, 1, 2);
-plot(Ex_practical);
+plot(tau, Ex_practical);
 title("E_{X,practical}(\tau)");
 xlabel('\tau');
 ylim([-5 5]);
 
-Rx_practical = mean(Rx,1);
+Rx_practical = mean(Rx, 1);
 
 figure;
 subplot(2, 1, 1);
-plot(tau,Rx_theory);
+plot(tau, Rx_theory);
 title("R_{X,theory}(\tau)");
 xlabel('\tau');
 
-
 subplot(2, 1, 2);
-plot(tau,Rx_practical);
+plot(tau, Rx_practical);
 title("R_{X,practical}(\tau)");
 xlabel('\tau');
-
