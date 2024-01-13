@@ -44,13 +44,25 @@ end
 
 figure;
 % subplot(2, 1, 1);
-plot(td, mq);
+hold on
+plot(td, mq,'r');
+ylim([0 20]);
+stem(td,mq,'Color','#1a5b11','LineStyle','none','LineWidth',2);
+for i=1:32
+    yline(Q_levels(i), 'b', 'LineWidth', 1);
+end
+
 title("m_{Quantized}(t)");
 xlabel('t');
 
 figure;
 % subplot(2, 1, 2);
-stairs(td, mq);
+hold on
+stairs(td, mq,'r','LineWidth',2);
+ylim([0 20]);
+for i=1:32
+    yline(Q_levels(i), 'b', 'LineWidth', 1);
+end
 title("m_{Quantized}(t)");
 xlabel('t');
 
@@ -59,7 +71,7 @@ load p.mat;
 fsp = 1000;
 t2 = linspace(0, Tend, N / fs * fsp);
 E_p = sum(p .^ 2);
-fprintf("Energy of p (base pulse) : E_p = %f", E_p);
+fprintf("Energy of p (base pulse) : E_p = %f\n", E_p);
 
 %%  Part 4 - 2
 G_code = [[0 0 0 0 0]; [0 0 0 0 1]; [0 0 0 1 1]; [0 0 0 1 0]; [0 0 1 1 0]; [0 0 1 1 1]; [0 0 1 0 1]; [0 0 1 0 0]; [0 1 1 0 0]; [0 1 1 0 1]; [0 1 1 1 1]; [0 1 1 1 0]; [0 1 0 1 0]; [0 1 0 1 1]; [0 1 0 0 1]; [0 1 0 0 0]; [1 1 0 0 0]; [1 1 0 0 1]; [1 1 0 1 1]; [1 1 0 1 0]; [1 1 1 1 0]; [1 1 1 1 1]; [1 1 1 0 1]; [1 1 1 0 0]; [1 0 1 0 0]; [1 0 1 0 1]; [1 0 1 1 1]; [1 0 1 1 0]; [1 0 0 1 0]; [1 0 0 1 1]; [1 0 0 0 1]; [1 0 0 0 0]];

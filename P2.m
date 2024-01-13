@@ -56,7 +56,8 @@ pro = x2 .* x3;
 Rx = squeeze(mean(pro, 2));
 
 figure;
-surf(tau, t, Rx);
+mesh(tau, t, Rx);
+title("R_X(\tau)")
 ylabel("t");
 xlabel("\tau");
 
